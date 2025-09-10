@@ -1,12 +1,15 @@
 function solution(participant, completion) {
-    var answer = '';
-    participant.sort();
-    completion.sort();
+    const map = new Map();
     
-    for(let i = 0; i < completion.length; i++){
-        if(participant[i] !== completion[i]){
-            return participant[i];
-        }
+    for (let p of participant) {
+        map.set(p, (map.get(p) || 0) + 1);
     }
-    return participant[participant.length - 1];
+    
+    for (let c of completion) {
+        map.set(c, map.get(c) - 1);
+    }
+    
+    for (let [key, value] of map) {
+        if (value > 0) return key; 
+    }
 }
